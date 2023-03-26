@@ -18,7 +18,6 @@ public class SocialLoginController {
 
     @GetMapping(path = "/code/linkedin")
     public String verfiyAccess(@PathVariable String code,@PathVariable String status) {
-
         return "linkedIn";
     }
 }
