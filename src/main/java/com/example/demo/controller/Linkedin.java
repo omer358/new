@@ -24,39 +24,25 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.example.demo.model.UserInfo;
 
-@Controller
-@RequestMapping
-public class Linkedin {
-    @GetMapping("auth/linkeddin")
-    public Map<String ,Object>UserDetails(@AuthenticationPrincipal OAuth2User  user){
-        return user.getAttributes();
-    }
-    @Autowired
-    RestTemplate restTemplate;
-    @RequestMapping(value = "/template/products", method = RequestMethod.POST)
-    public String createProducts(@RequestBody UserInfo product) {
-       HttpHeaders headers = new HttpHeaders();
-       headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-       HttpEntity<UserInfo> entity = new HttpEntity<UserInfo>(product,headers);
+// @Controller
+// @RequestMapping
+ public class Linkedin {
+//     @GetMapping("auth/linkeddin")
+//     public Map<String ,Object>UserDetails(@AuthenticationPrincipal OAuth2User  user){
+//         return user.getAttributes();
+//     }
+//     @Autowired
+//     RestTemplate restTemplate;
+//     @RequestMapping(value = "/template/products", method = RequestMethod.POST)
+//     public String createProducts(@RequestBody UserInfo product) {
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+//        HttpEntity<UserInfo> entity = new HttpEntity<UserInfo>(product,headers);
        
-       return restTemplate.exchange(
-          "https://api.linkedin.com/v2/me", HttpMethod.POST, entity, String.class).getBody();
-    }
-    @Component
-    public class FeignClientInterceptor implements RequestInterceptor {
-    
-      private static final String AUTHORIZATION_HEADER = "Authorization";
+//        return restTemplate.exchange(
+//           "https://api.linkedin.com/v2/me", HttpMethod.POST, entity, String.class).getBody();
+//     }
 
-      public static String getBearerTokenHeader() {
-        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization");
-      }
-    
-      @Override
-      public void apply(requestTemplate requestTemplate) {
 
-          requestTemplate.header(AUTHORIZATION_HEADER, getBearerTokenHeader());
-       
-      }
-    }
 }
 
